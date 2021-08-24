@@ -20,3 +20,5 @@ class DataService extends GetxService {
     isLoggedIn.value = false;
   }
 }
+
+

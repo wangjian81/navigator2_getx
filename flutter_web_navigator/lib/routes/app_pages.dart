@@ -1,3 +1,5 @@
+import 'package:flutter_web_navigator/servier/data_servier.dart';
+import 'package:flutter_web_navigator/servier/storge.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -33,9 +35,13 @@ class AppPages {
           binding: SplashBinding(),
         ),
         GetPage(
+          middlewares: [
+            EnsureNotAuthedMiddleware(),
+          ],
           name: '/login',
           page: () => LoginPage(),
           binding: LoginBinding(),
+
         ),
         GetPage(
           name: '/home',
@@ -68,6 +74,19 @@ class AppPages {
         transitionDuration: Duration(milliseconds: 300)),
   ];
 }
+
+
+class EnsureNotAuthedMiddleware extends GetMiddleware {
+
+  @override
+  Future<GetNavConfig?> redirectDelegate(GetNavConfig route) async {
+    if(DataService.to.isLoggedIn.value == true){
+      return null;
+    }
+    return route;
+  }
+}
+
 
 class ForceNavigateToRouteMiddleware extends GetMiddleware {
   final String from;

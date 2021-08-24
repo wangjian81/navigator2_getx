@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_web_navigator/servier/data_servier.dart';
 import 'package:get/get.dart';
 import 'login_controller.dart';
 
@@ -17,6 +18,7 @@ class LoginPage extends GetView<LoginController> {
               password(),
               ElevatedButton(
                 onPressed: () {
+                  DataService.to.isLoggedIn.value = true;
                   controller.save();
                   controller.gotoHome();
                 },
